@@ -37,6 +37,7 @@ public class Config {
 	public static final String USE_NATIVE_FILE_CHOOSER = "use_native_file_chooser";
 	public static final String CALLSIGN = "callsign";
 	public static final String DEFAULT_CALLSIGN = "NONE";
+	public static final String PLOT_CALLSIGNS = "plot_callsigns";
 
 	
 	public static boolean logging = true;
@@ -52,6 +53,7 @@ public class Config {
 		set(LOGGING, false);
 		set(USE_NATIVE_FILE_CHOOSER, false);
 		set(CALLSIGN, DEFAULT_CALLSIGN);
+		set(PLOT_CALLSIGNS, false);
 
 		loadFile();
 	}

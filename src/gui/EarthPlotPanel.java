@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 
 import javax.imageio.ImageIO;
 
+import common.Config;
 import common.Log;
 import data.Stp;
 import data.StpTable;
@@ -183,8 +184,10 @@ public class EarthPlotPanel extends MapPanel {
 			int y = latToY(lat, graphWidth, graphHeight);
 			gr.setColor(Color.RED);
 			gr.fillRect(x, graphHeight-y+topBorder-boxHeight, boxWidth, boxHeight);
-			//gr.setColor(Color.BLUE);
-			//gr.drawString(stp.receiver, x, graphHeight-y+topBorder-boxHeight);
+			if (Config.getBoolean(Config.PLOT_CALLSIGNS)) {
+				gr.setColor(Color.BLUE);
+				gr.drawString(stp.receiver, x, graphHeight-y+topBorder-boxHeight);
+			}
 		}
 	}
 

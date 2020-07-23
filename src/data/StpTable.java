@@ -18,8 +18,9 @@ public class StpTable {
 		load(name);
 	}
 
+	int i = 0;
 	public void load(String filename) throws IOException {
-		int i = 0;
+		
 		BufferedReader dis = new BufferedReader(new FileReader(filename));
 		String line;
 		try {
@@ -66,7 +67,7 @@ public class StpTable {
 		StringTokenizer st = null;
 		try {
 			st = new StringTokenizer(line, ",");
-			date = st.nextToken();
+			date = st.nextToken(); // first word then has a comma!
 			date = date + st.nextToken();
 			id = Integer.valueOf(st.nextToken()).intValue();
 			resets = Integer.valueOf(st.nextToken()).intValue();
@@ -92,18 +93,18 @@ public class StpTable {
 			}
 
 		} catch (NoSuchElementException e) {
-			Log.errorDialog("ERROR: Corrupted record", e.getMessage() + 
+			Log.errorDialog("Line: " + i + " ERROR: Corrupted record", e.getMessage() + 
 					" Could not load record for SAT: " + id + " Reset:" + resets + " Up:" + uptime + " Type:" + type +
 					"\nThis record will be ignored, but adding more records may not fix the problem.");
 			// we are done and can finish
 			return null;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			// Something nasty happened when we were loading, so skip this record and log an error
-			Log.errorDialog("ERROR: Too many fields: Index out of bounds", e.getMessage() + 
+			Log.errorDialog("Line: " + i + " ERROR: Too many fields: Index out of bounds", e.getMessage() + 
 					" Could not load line for SAT: " + id + " Reset:" + resets + " Up:" + uptime + " Type:" + type);
 			return null;
 		} catch (NumberFormatException n) {
-			Log.println("ERROR: Invalid number:  " + n.getMessage() + " Could not load frame " + id + " " + resets + " " + uptime + " " + type);
+			Log.println("Line: " + i + " ERROR: Invalid number:  " + n.getMessage() + " Could not load frame " + id + " " + resets + " " + uptime + " " + type);
 			Log.errorDialog("LOAD ERROR - DEBUG MESSAGE", "ERROR: Invalid number:  " + n.getMessage() + " Could not load frame " + id + " " + resets + " " + uptime + " " + type);
 			return null;
 		}
